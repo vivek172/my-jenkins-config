@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<flow-build plugin="workflow-job@2.12.2">
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.model.Cause_-UserIdCause>
+            <userId>admin</userId>
+          </hudson.model.Cause_-UserIdCause>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <org.jenkinsci.plugins.workflow.libs.LibrariesAction plugin="workflow-cps-global-lib@2.9">
+      <libraries/>
+    </org.jenkinsci.plugins.workflow.libs.LibrariesAction>
+    <org.jenkinsci.plugins.workflow.cps.EnvActionImpl plugin="workflow-cps@2.45">
+      <env class="tree-map"/>
+    </org.jenkinsci.plugins.workflow.cps.EnvActionImpl>
+    <hudson.plugins.git.util.BuildData plugin="git@3.8.0">
+      <buildsByBranchName>
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked plugin="git-client@2.7.1">
+              <sha1>2e733332b275cd27a89d8ba383290bc30cf59ba8</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>refs/remotes/origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>11</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+      <scmName></scmName>
+      <remoteUrls>
+        <string>git@github.com:vivek172/jenkins-apps.git</string>
+      </remoteUrls>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.plugins.git.GitTagAction plugin="git@3.8.0">
+      <tags class="hudson.util.CopyOnWriteMap$Tree">
+        <entry>
+          <string>refs/remotes/origin/master</string>
+          <list/>
+        </entry>
+      </tags>
+      <ws>/root/jenkins/workspace/my-test-project</ws>
+    </hudson.plugins.git.GitTagAction>
+    <org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState plugin="workflow-scm-step@2.6">
+      <revisionStates>
+        <entry>
+          <string>git git@github.com:vivek172/jenkins-apps.git</string>
+          <hudson.scm.SCMRevisionState_-None/>
+        </entry>
+      </revisionStates>
+    </org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState>
+    <org.jenkinsci.plugins.docker.commons.fingerprint.DockerFingerprintAction plugin="docker-commons@1.11">
+      <imageIDs>
+        <string>sha256:969096cd4083521842ec75de7b4531b30d641eab1fffc824d4a9bce9688b7a37</string>
+      </imageIDs>
+    </org.jenkinsci.plugins.docker.commons.fingerprint.DockerFingerprintAction>
+    <org.jenkinsci.plugins.docker.workflow.ImageAction plugin="docker-workflow@1.8">
+      <names class="sorted-set">
+        <string>jenkins-agent-ubuntu</string>
+      </names>
+    </org.jenkinsci.plugins.docker.workflow.ImageAction>
+  </actions>
+  <queueId>20</queueId>
+  <timestamp>1524688419032</timestamp>
+  <startTime>1524688419034</startTime>
+  <result>SUCCESS</result>
+  <duration>47888</duration>
+  <keepLog>false</keepLog>
+  <execution class="org.jenkinsci.plugins.workflow.cps.CpsFlowExecution">
+    <result>SUCCESS</result>
+    <script>node(&apos;master&apos;) {
+    docker.withServer(&apos;unix:///var/run/docker.sock&apos;) {
+        stage(&apos;Git clone&apos;) {
+            git &apos;git@github.com:vivek172/jenkins-apps.git&apos;
+        }
+        stage(&apos;Build&apos;) {
+            docker
+                .image(&apos;jenkins-agent-ubuntu&apos;)
+                .inside(&apos;--volumes-from jenkins-master&apos;) {
+                    sh &quot;bash ./build.sh;&quot;
+                }
+        }
+        stage(&apos;Copy build results&apos;) {
+            docker
+                .image(&apos;jenkins-agent-ubuntu&apos;)
+                .inside(&apos;--volumes-from jenkins-master&apos;) {
+                    sh &quot;bash ./build.sh;&quot;
+                }
+        }
+        stage(&apos;UI unit tests&apos;) {
+            docker
+                .image(&apos;jenkins-agent-ubuntu&apos;)
+                .inside(&apos;--volumes-from jenkins-master&apos;) {
+                    sh &quot;bash ./build.sh;&quot;
+                }
+        }
+    }
+}</script>
+    <loadedScripts class="map"/>
+    <durabilityHint>MAX_SURVIVABILITY</durabilityHint>
+    <timings class="map">
+      <entry>
+        <string>flowNode</string>
+        <long>157503454</long>
+      </entry>
+      <entry>
+        <string>classLoad</string>
+        <long>707927866</long>
+      </entry>
+      <entry>
+        <string>run</string>
+        <long>43751713207</long>
+      </entry>
+      <entry>
+        <string>parse</string>
+        <long>130530786</long>
+      </entry>
+      <entry>
+        <string>saveProgram</string>
+        <long>152747519</long>
+      </entry>
+    </timings>
+    <sandbox>true</sandbox>
+    <iota>46</iota>
+    <head>1:46</head>
+    <resumeBlocked>false</resumeBlocked>
+  </execution>
+  <checkouts class="hudson.util.PersistedList">
+    <org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+      <scm class="hudson.plugins.git.GitSCM" plugin="git@3.8.0">
+        <configVersion>2</configVersion>
+        <userRemoteConfigs>
+          <hudson.plugins.git.UserRemoteConfig>
+            <url>git@github.com:vivek172/jenkins-apps.git</url>
+          </hudson.plugins.git.UserRemoteConfig>
+        </userRemoteConfigs>
+        <branches class="singleton-list">
+          <hudson.plugins.git.BranchSpec>
+            <name>*/master</name>
+          </hudson.plugins.git.BranchSpec>
+        </branches>
+        <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+        <submoduleCfg class="empty-list"/>
+        <extensions>
+          <hudson.plugins.git.extensions.impl.LocalBranch>
+            <localBranch>master</localBranch>
+          </hudson.plugins.git.extensions.impl.LocalBranch>
+        </extensions>
+      </scm>
+      <node></node>
+      <workspace>/root/jenkins/workspace/my-test-project</workspace>
+      <changelogFile>/root/jenkins/jobs/my-test-project/builds/11/changelog0.xml</changelogFile>
+      <pollingBaseline class="hudson.scm.SCMRevisionState$None" reference="../../../actions/org.jenkinsci.plugins.workflow.steps.scm.MultiSCMRevisionState/revisionStates/entry/hudson.scm.SCMRevisionState_-None"/>
+    </org.jenkinsci.plugins.workflow.job.WorkflowRun_-SCMCheckout>
+  </checkouts>
+</flow-build>
