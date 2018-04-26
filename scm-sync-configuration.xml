@@ -14,5 +14,6 @@
     <include>secrets/master.key</include>
     <include>users/*/config.xml</include>
     <include>userContent/*</include>
+    <include>*.xml</include>
   </manualSynchronizationIncludes>
 </hudson.plugins.scm__sync__configuration.ScmSyncConfigurationPlugin>
